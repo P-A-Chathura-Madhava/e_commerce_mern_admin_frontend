@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 const { Dragger } = Upload;
@@ -25,17 +24,36 @@ const props = {
   },
 };
 
-const Addblog = () => {
+const Addproduct = () => {
   const [desc, setDesc] = useState();
   const handleDesc = (e) => {
     setDesc(e);
   };
   return (
     <div>
-      <h3 className="mb-4">Add Blog</h3>
-
+      <h3 className="mb-4">Add Product</h3>
       <div>
         <form action="">
+          <CustomInput type="text" label="Enter Product Title" />
+          <div className="mb-3">
+            <ReactQuill
+              theme="snow"
+              value={desc}
+              onChange={(evt) => {
+                handleDesc(evt);
+              }}
+            />
+          </div>
+          <select name="" className="form-control py-3 mb-3" id="">
+            <option value="">Select Brand</option>
+          </select>
+          <select name="" className="form-control py-3 mb-3" id="">
+            <option value="">Select Category</option>
+          </select>
+          <select name="" className="form-control py-3 mb-3" id="">
+            <option value="">Select Color</option>
+          </select>
+          <CustomInput type="number" label="Enter Product Price" />
           <Dragger {...props}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
@@ -48,27 +66,16 @@ const Addblog = () => {
               uploading company data or other banned files.
             </p>
           </Dragger>
-          <div className="mt-4">
-            <CustomInput type="text" label="Enter Blog Title" />
-          </div>
-          <select name="" className="form-control py-3 mb-3" id="">
-            <option value="">Select Blog Category</option>
-          </select>
-          <ReactQuill
-            theme="snow"
-            value={desc}
-            onChange={(evt) => {
-              handleDesc(evt);
-            }}
-          />
           <button
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
-          >Add Blog</button>
+          >
+            Add Product
+          </button>
         </form>
       </div>
     </div>
   );
 };
 
-export default Addblog;
+export default Addproduct;
