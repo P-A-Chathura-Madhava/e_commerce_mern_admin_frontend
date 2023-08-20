@@ -1,0 +1,10 @@
+.green {
+    color: var(--color-47ad24);
+    font-size: 14px;
+    font-family: Roboto !important;
+  }
+  .red {
+    color: var(--color-212529);
+    font-size: 14px;
+    font-family: Roboto !important;
+  }
