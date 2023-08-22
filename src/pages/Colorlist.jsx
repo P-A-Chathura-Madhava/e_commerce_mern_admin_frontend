@@ -32,7 +32,7 @@ for (let i = 0; i < 46; i++) {
 const Colorlist = () => {
   return (
     <div>
-      <h3 className="mb-4">Color List</h3>
+      <h3 className="mb-4 title">Color List</h3>
       <div>
         <Table columns={columns} dataSource={data1}></Table>
       </div>
