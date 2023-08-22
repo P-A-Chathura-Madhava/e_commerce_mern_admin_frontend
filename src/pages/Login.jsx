@@ -24,7 +24,6 @@ const Login = () => {
     validationSchema: schema,
     onSubmit: (values) => {
       dispatch(login(values));
-      alert(JSON.stringify(values, null, 2));
     },
   });
   const authState = useSelector((state) => state);
@@ -48,14 +47,18 @@ const Login = () => {
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-3">
         <h3 className="text-center title">Login</h3>
         <p className="text-center">Login to your account to continue.</p>
+        <div className="error text-center">
+          {message.message == "Rejected" ? "You are not an Admin" : ""}
+        </div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
             name="email"
             label="Email Address"
             id="email"
+            onChng={formik.handleChange("email")}
+            onBlr={formik.handleBlur("email")}
             val={formik.values.email}
-            onCh={formik.handleChange("email")}
           />
           <div className="error mt-2">
             {formik.touched.email && formik.errors.email}
@@ -65,8 +68,9 @@ const Login = () => {
             name="password"
             label="Password"
             id="pass"
+            onChng={formik.handleChange("password")}
+            onBlr={formik.handleBlur("password")}
             val={formik.values.password}
-            onCh={formik.handleChange("password")}
           />
           <div className="error mt-2">
             {formik.touched.password && formik.errors.password}
