@@ -1,18 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomInput from "../components/CustomInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../features/auth/authSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  let schema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Email should be valid")
+      .required("Email is Required"),
+    password: yup.string().required("Password is Required"),
+  });
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
+    validationSchema: schema,
     onSubmit: (values) => {
+      dispatch(login(values));
       alert(JSON.stringify(values, null, 2));
     },
   });
+  const authState = useSelector((state) => state);
+
+  const { user, isError, isSuccess, isLoading, message } = authState.auth;
+
+  useEffect(() => {
+    if (!user==null || isSuccess) {
+      navigate("admin");
+    } else {
+      navigate("");
+    }
+  }, [user, isError, isSuccess, isLoading]);
   return (
     <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
       <br />
@@ -32,6 +57,9 @@ const Login = () => {
             val={formik.values.email}
             onCh={formik.handleChange("email")}
           />
+          <div className="error mt-2">
+            {formik.touched.email && formik.errors.email}
+          </div>
           <CustomInput
             type="password"
             name="password"
@@ -40,6 +68,9 @@ const Login = () => {
             val={formik.values.password}
             onCh={formik.handleChange("password")}
           />
+          <div className="error mt-2">
+            {formik.touched.password && formik.errors.password}
+          </div>
           <div className="mb-3 text-end">
             <Link to="forgot-password" className="">
               Forgot Password?
