@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
+import { useDispatch } from "react-redux";
+import { getUsers } from "../features/customers/customerSlice";
 
 const columns = [
   {
@@ -30,6 +32,10 @@ for (let i = 0; i < 46; i++) {
 }
 
 const Customers = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
   return (
     <div>
       <h3 className="mb-4 title">Customers</h3>
