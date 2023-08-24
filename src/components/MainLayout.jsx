@@ -8,6 +8,8 @@ import {
   AiOutlineUser,
   AiOutlineBgColors,
 } from "react-icons/ai";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { RiCouponLine } from "react-icons/ri";
 import { ImBlog } from "react-icons/im";
 import { FaClipboardList, FaBloggerB } from "react-icons/fa";
@@ -159,7 +161,7 @@ const MainLayout = () => {
       </Sider>
       <Layout className="site-layout">
         <Header
-        className="d-flex justify-content-between ps-1 pe-5"
+          className="d-flex justify-content-between ps-1 pe-5"
           style={{
             padding: 0,
             background: colorBgContainer,
@@ -195,7 +197,7 @@ const MainLayout = () => {
                 aria-expanded="false"
               >
                 <h5 className="mb-0">Kasun</h5>
-                <p className="mb-0">kasun@gmail.com</p>                
+                <p className="mb-0">kasun@gmail.com</p>
               </div>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li>
@@ -217,8 +219,8 @@ const MainLayout = () => {
                   </Link>
                 </li>
               </div>
-              </div>
-              </div>
+            </div>
+          </div>
         </Header>
         <Content
           style={{
@@ -228,6 +230,17 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
+          <ToastContainer
+            position="top-right"
+            autoClose={250}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="light"
+          />
           <Outlet />
         </Content>
       </Layout>
