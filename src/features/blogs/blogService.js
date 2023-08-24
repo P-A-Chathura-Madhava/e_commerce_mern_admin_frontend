@@ -6,6 +6,7 @@ const getBlogs = async () => {
 
   return response.data;
 };
+
 const blogService = {
   getBlogs,
 };
