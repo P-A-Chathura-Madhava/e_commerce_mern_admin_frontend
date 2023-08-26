@@ -5,7 +5,6 @@ import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { getOrders } from "../features/auth/authSlice";
-
 const columns = [
   {
     title: "SNo",
@@ -27,6 +26,7 @@ const columns = [
     title: "Date",
     dataIndex: "date",
   },
+
   {
     title: "Action",
     dataIndex: "action",
@@ -39,18 +39,17 @@ const Orders = () => {
     dispatch(getOrders());
   }, []);
   const orderState = useSelector((state) => state.auth.orders);
+
   const data1 = [];
   for (let i = 0; i < orderState.length; i++) {
     data1.push({
       key: i + 1,
       name: orderState[i].orderby.firstname,
-      product: orderState[i].products.map((i, j) => {
-        return (
-            <ul key={j}>
-              <li>{i.product.title}</li>
-            </ul>
-        );
-      }),
+      product: (
+        <Link to={`/admin/order/${orderState[i].orderby._id}`}>
+          View Orders
+        </Link>
+      ),
       amount: orderState[i].paymentIntent.amount,
       date: new Date(orderState[i].createdAt).toLocaleString(),
       action: (
@@ -68,9 +67,7 @@ const Orders = () => {
   return (
     <div>
       <h3 className="mb-4 title">Orders</h3>
-      <div>
-        <Table columns={columns} dataSource={data1}></Table>
-      </div>
+      <div>{<Table columns={columns} dataSource={data1} />}</div>
     </div>
   );
 };
