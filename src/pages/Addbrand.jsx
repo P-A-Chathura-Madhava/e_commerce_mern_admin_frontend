@@ -67,7 +67,7 @@ const Addbrand = () => {
         formik.resetForm();
         setTimeout(() => {
           dispatch(resetState());
-        }, 300);
+        }, 1000);
       }
     },
   });
