@@ -46,15 +46,16 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let data = [];
     let monthlyOrderCount = [];
     for (let index = 0; index < monthlyDataState?.length; index++) {
-      const element = array[index];
+      const element = monthlyDataState[index];
       data.push({
         type: monthNames[element?._id?.month],
         income: element?.count,
       });
-      monthlyOrderCount: push({
+      monthlyOrderCount.push({
         type: monthNames[element?._id?.month],
         sales: element?.count,
       });
