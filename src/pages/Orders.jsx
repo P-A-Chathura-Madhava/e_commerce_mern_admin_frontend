@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { getOrders } from "../features/auth/authSlice";
+import { getOrders, updateAOrder } from "../features/auth/authSlice";
 const columns = [
   {
     title: "SNo",
@@ -54,15 +54,20 @@ const Orders = () => {
       date: new Date(orderState[i]?.createdAt).toLocaleString(),
       action: (
         <>
-          <Link to="/" className=" fs-3 text-danger">
-            <BiEdit />
-          </Link>
-          <Link className="ms-3 fs-3 text-danger" to="/">
-            <AiFillDelete />
-          </Link>
+        <select name="" defaultValue={orderState[i]?.orderStatus} onChange={(e) => updateOrderStatus(orderState[i]?._id, e.target.value)} className="form-control from-select" id="">
+          <option value="Ordered" disabled selected>Ordered</option>
+          <option value="Processed">Processed</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Out Fro Delivery">Out For Delivery</option>
+          <option value="Delivered">Delivered</option>
+        </select>
         </>
       ),
     });
+  }
+
+  const updateOrderStatus = (a, b) => {
+    dispatch(updateAOrder({id: a, status:b}));
   }
   return (
     <div>

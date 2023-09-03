@@ -84,15 +84,15 @@ const Dashboard = () => {
     for (let i = 0; i < orderState?.length; i++) {
       data1.push({
         key: i,
-        name: orderState[i].user.firstname + orderState[i].user.lastname,
-        product: orderState[i].orderItems?.length,
+        name: orderState[i]?.user?.firstname + orderState[i]?.user?.lastname,
+        product: orderState[i]?.orderItems?.length,
         price:orderState[i]?.totalPrice,
         dprice: orderState[i]?.totalPriceAfterDiscount,
         staus: orderState[i]?.orderStatus,
       });
     }
     setOrderData(data1);
-  }, [monthlyDataState, yearlyDataState]);
+  }, [orderState]);
 
   const config = {
     data: dataMonthly,
