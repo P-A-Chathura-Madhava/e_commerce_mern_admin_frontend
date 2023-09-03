@@ -3,7 +3,11 @@ import { BsArrowDownRight } from "react-icons/bs";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getMonthlyData, getOrders, getYearlyData } from "../features/auth/authSlice";
+import {
+  getMonthlyData,
+  getOrders,
+  getYearlyData,
+} from "../features/auth/authSlice";
 const columns = [
   {
     title: "SNo",
@@ -14,23 +18,22 @@ const columns = [
     dataIndex: "name",
   },
   {
-    title: "Product",
+    title: "Product Count",
     dataIndex: "product",
   },
   {
+    title: "Total Price",
+    dataIndex: "price",
+  },
+  {
+    title: "Total Price After Discount",
+    dataIndex: "dprice",
+  },
+  {
     title: "Status",
-    dataIndex: "staus",
+    dataIndex: "status",
   },
 ];
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    name: `Edward King ${i}`,
-    product: 32,
-    staus: `London, Park Lane no. ${i}`,
-  });
-}
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -39,6 +42,7 @@ const Dashboard = () => {
   const orderState = useSelector((state) => state?.auth?.orders.orders);
   const [dataMonthly, setDataMonthly] = useState([]);
   const [dataMonthlySales, setDataMonthlySales] = useState([]);
+  const [orderData, setOrderData] = useState();
   useEffect(() => {
     dispatch(getMonthlyData());
     dispatch(getYearlyData());
@@ -46,7 +50,20 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
     let data = [];
     let monthlyOrderCount = [];
     for (let index = 0; index < monthlyDataState?.length; index++) {
@@ -62,7 +79,20 @@ const Dashboard = () => {
     }
     setDataMonthly(data);
     setDataMonthlySales(monthlyOrderCount);
-  }, [monthlyDataState]);
+
+    const data1 = [];
+    for (let i = 0; i < orderState?.length; i++) {
+      data1.push({
+        key: i,
+        name: orderState[i].user.firstname + orderState[i].user.lastname,
+        product: orderState[i].orderItems?.length,
+        price:orderState[i]?.totalPrice,
+        dprice: orderState[i]?.totalPriceAfterDiscount,
+        staus: orderState[i]?.orderStatus,
+      });
+    }
+    setOrderData(data1);
+  }, [monthlyDataState, yearlyDataState]);
 
   const config = {
     data: dataMonthly,
@@ -129,7 +159,9 @@ const Dashboard = () => {
         <div className="d-flex p-3 justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
             <p className="desc">Total Income</p>
-            <h4 className="mb-0 sub-title">{yearlyDataState[0].amount}LKR</h4>
+            <h4 className="mb-0 sub-title">
+              {yearlyDataState && yearlyDataState[0]?.amount}LKR
+            </h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <p className="mb-0  desc">Income in Last Year from Today</p>
@@ -138,7 +170,9 @@ const Dashboard = () => {
         <div className="d-flex p-3 justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
             <p className="desc">Total Sales</p>
-            <h4 className="mb-0 sub-title">{yearlyDataState[0].count}</h4>
+            <h4 className="mb-0 sub-title">
+              {yearlyDataState && yearlyDataState[0]?.count}
+            </h4>
           </div>
           <div className="d-flex flex-column align-items-end">
             <p className="mb-0  desc">Sales in Last Year from Today</p>
@@ -162,7 +196,7 @@ const Dashboard = () => {
       <div className="mt-4">
         <h3 className="mb-5 title">Recent Orders</h3>
         <div>
-          <Table columns={columns} dataSource={data1} />
+          <Table columns={columns} dataSource={orderData} />
         </div>
       </div>
     </div>
