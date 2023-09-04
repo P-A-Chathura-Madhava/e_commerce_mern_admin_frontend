@@ -50,7 +50,6 @@ const ViewOrder = () => {
       count: orderState?.orderItems[i]?.quantity,
       amount: orderState?.orderItems[i]?.price,
       color: orderState?.orderItems[i]?.color?.title,
-
     });
   }
   return (

@@ -23,24 +23,24 @@ const getOrder = async (id) => {
 const updateOrder = async (data) => {
   const response = await axios.put(
     `${base_url}user/updateOrder/${data.id}`,
-    {status: data.status},
+    { status: data.status },
     config
   );
 
   return response.data;
 };
 
-const getMonthlyOrders = async () => {
+const getMonthlyOrders = async (data) => {
   const response = await axios.get(
     `${base_url}user/getMonthWiseOrderIncome`,
-    config
+    data
   );
 
   return response.data;
 };
 
-const getYearlyStats = async () => {
-  const response = await axios.get(`${base_url}user/getyearlyorders`, config);
+const getYearlyStats = async (data) => {
+  const response = await axios.get(`${base_url}user/getyearlyorders`, data);
 
   return response.data;
 };

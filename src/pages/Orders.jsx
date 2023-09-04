@@ -46,29 +46,37 @@ const Orders = () => {
       key: i + 1,
       name: orderState[i]?.user?.firstname,
       product: (
-        <Link to={`/admin/order/${orderState[i]?._id}`}>
-          View Orders
-        </Link>
+        <Link to={`/admin/order/${orderState[i]?._id}`}>View Orders</Link>
       ),
       amount: orderState[i]?.totalPrice,
       date: new Date(orderState[i]?.createdAt).toLocaleString(),
       action: (
         <>
-        <select name="" defaultValue={orderState[i]?.orderStatus} onChange={(e) => updateOrderStatus(orderState[i]?._id, e.target.value)} className="form-control from-select" id="">
-          <option value="Ordered" disabled selected>Ordered</option>
-          <option value="Processed">Processed</option>
-          <option value="Shipped">Shipped</option>
-          <option value="Out Fro Delivery">Out For Delivery</option>
-          <option value="Delivered">Delivered</option>
-        </select>
+          <select
+            name=""
+            defaultValue={orderState[i]?.orderStatus}
+            onChange={(e) =>
+              updateOrderStatus(orderState[i]?._id, e.target.value)
+            }
+            className="form-control from-select"
+            id=""
+          >
+            <option value="Ordered" disabled selected>
+              Ordered
+            </option>
+            <option value="Processed">Processed</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Out Fro Delivery">Out For Delivery</option>
+            <option value="Delivered">Delivered</option>
+          </select>
         </>
       ),
     });
   }
 
   const updateOrderStatus = (a, b) => {
-    dispatch(updateAOrder({id: a, status:b}));
-  }
+    dispatch(updateAOrder({ id: a, status: b }));
+  };
   return (
     <div>
       <h3 className="mb-4 title">Orders</h3>
