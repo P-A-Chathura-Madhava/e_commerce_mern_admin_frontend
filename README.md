@@ -7,7 +7,7 @@
     <img src="/project-logo.jpg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">MERN - ECommerce Application User Frontend API</h3>
+  <h3 align="center">MERN - ECommerce Application Admin Frontend API</h3>
 </div>
 
 <!-- TABLE OF CONTENTS -->
