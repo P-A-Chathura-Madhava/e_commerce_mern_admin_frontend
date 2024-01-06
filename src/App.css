@@ -46,3 +46,8 @@
   font-family: Roboto !important;
   color: var(--color-828599);
 }
+
+.login_page_spacing {
+  margin: 0;
+  padding: 0;
+}

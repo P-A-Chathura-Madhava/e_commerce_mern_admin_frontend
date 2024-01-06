@@ -26,6 +26,11 @@ import ViewEnq from "./pages/ViewEnq";
 import ViewOrder from "./pages/ViewOrder";
 import { PrivateRoutes } from "./routing/PrivateRoutes";
 import { OpenRoutes } from "./routing/OpenRoutes";
+import Register from "./pages/Register";
+import AccountCreated from "./pages/AccountCreated";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -36,6 +41,22 @@ function App() {
           element={
             <OpenRoutes>
               <Login />
+            </OpenRoutes>
+          }
+        />
+                <Route
+          path="/register"
+          element={
+            <OpenRoutes>
+              <Register />
+            </OpenRoutes>
+          }
+        />
+                        <Route
+          path="/account-created"
+          element={
+            <OpenRoutes>
+              <AccountCreated />
             </OpenRoutes>
           }
         />
@@ -77,6 +98,7 @@ function App() {
           <Route path="product" element={<Addproduct />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </Router>
   );
 }

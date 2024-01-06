@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
+import { toast } from "react-toastify";
 
 const getUserfromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
@@ -12,6 +13,17 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
+
+export const register = createAsyncThunk(
+  "auth/register",
+  async (userData, thunkAPI) => {
+    try {
+      return await authService.register(userData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -85,6 +97,28 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (buildeer) => {
     buildeer
+    .addCase(register.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(register.fulfilled, (state, action) => {
+      state.isError = false;
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.user = action.payload;
+      state.message = "success";
+      if (state.isSuccess) {
+        toast.success("Your Account Created Successfully")
+      }
+    })
+    .addCase(register.rejected, (state, action) => {
+      state.isError = true;
+      state.isSuccess = false;
+      state.message = action.error;
+      state.isLoading = false;
+      if (state.isError) {
+        toast.error("Something went wrong")
+      }
+    })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })

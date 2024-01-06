@@ -8,6 +8,16 @@ const login = async (user) => {
   }
   return response.data;
 };
+
+const register = async (user) => {
+  // console.log(user);
+  const response = await axios.post(`${base_url}user/register`, user);
+  // if (response.data) {
+    // localStorage.setItem("user", JSON.stringify(response.data));
+  // }
+  return response.data;
+};
+
 const getOrders = async () => {
   const response = await axios.get(`${base_url}user/getallorders`, config);
 
@@ -46,6 +56,7 @@ const getYearlyStats = async (data) => {
 };
 
 const authService = {
+  register,
   login,
   getOrders,
   getOrder,

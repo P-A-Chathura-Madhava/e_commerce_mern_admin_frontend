@@ -40,10 +40,6 @@ const Login = () => {
   return (
     <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-3">
         <h3 className="text-center title">Login</h3>
         <p className="text-center">Login to your account to continue.</p>
@@ -88,6 +84,8 @@ const Login = () => {
             Login
           </button>
         </form>
+        <p className="login_page_spacing mt-4">Don't you have an account?</p>
+        <a className="login_page_spacing" href="/register">Register</a>
       </div>
     </div>
   );
