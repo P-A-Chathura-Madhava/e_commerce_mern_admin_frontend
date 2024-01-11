@@ -1,8 +1,8 @@
 import axios from "axios";
 import { config } from "../../utils/axiosconfig";
-import { base_url } from "../../utils/base_url";
+// import { base_url } from "../../utils/base_url";
 const login = async (user) => {
-  const response = await axios.post(`${base_url}user/admin-login`, user);
+  const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user/admin-login`, user);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
@@ -11,7 +11,7 @@ const login = async (user) => {
 
 const register = async (user) => {
   // console.log(user);
-  const response = await axios.post(`${base_url}user/register`, user);
+  const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user/register`, user);
   // if (response.data) {
     // localStorage.setItem("user", JSON.stringify(response.data));
   // }
@@ -19,20 +19,20 @@ const register = async (user) => {
 };
 
 const getOrders = async () => {
-  const response = await axios.get(`${base_url}user/getallorders`, config);
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}user/getallorders`, config);
 
   return response.data;
 };
 
 const getOrder = async (id) => {
-  const response = await axios.get(`${base_url}user/getaOrder/${id}`, config);
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}user/getaOrder/${id}`, config);
 
   return response.data;
 };
 
 const updateOrder = async (data) => {
   const response = await axios.put(
-    `${base_url}user/updateOrder/${data.id}`,
+    `${process.env.REACT_APP_BASE_URL}user/updateOrder/${data.id}`,
     { status: data.status },
     config
   );
@@ -42,7 +42,7 @@ const updateOrder = async (data) => {
 
 const getMonthlyOrders = async (data) => {
   const response = await axios.get(
-    `${base_url}user/getMonthWiseOrderIncome`,
+    `${process.env.REACT_APP_BASE_URL}user/getMonthWiseOrderIncome`,
     data
   );
 
@@ -50,7 +50,7 @@ const getMonthlyOrders = async (data) => {
 };
 
 const getYearlyStats = async (data) => {
-  const response = await axios.get(`${base_url}user/getyearlyorders`, data);
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}user/getyearlyorders`, data);
 
   return response.data;
 };
